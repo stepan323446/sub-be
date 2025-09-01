@@ -1,0 +1,12 @@
+{% extends "project/email_base.html" %}
+
+{% block preheader %}Activation account on SubTrack{% endblock %}
+
+{% block content %}
+<p>Hi {{ username }},</p>
+<p>You recently registered on SubTrack and have now received an email with a link to activate your account:</p>
+<p>
+    <a href="{{ url_to_activate }}">{{ url_to_activate }}</a>
+</p>
+<p>Thanks,<br>The SubTrack Website</p>
+{% endblock %}
