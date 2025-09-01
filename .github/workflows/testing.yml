@@ -1,13 +1,13 @@
-name: Django CI
+name: Django Testing
 
 on:
   push:
-    branches: [ "master", "develop" ]
+    branches: [ "develop" ]
   pull_request:
-    branches: [ "master", "develop" ]
+    branches: [ "develop" ]
 
 jobs:
-  build:
+  testing:
     runs-on: ubuntu-latest
     env:
         SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
