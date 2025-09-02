@@ -76,14 +76,14 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'limit', 'currency', 'is_monday_first', 'notification_email_enable', 'news_email_enable')
+        fields = ('id', 'username', 'email', 'limit', 'currency', 'is_monday_first', 'notification_email_enable', 'news_email_enable')
 
 class UserAdminSerializer(serializers.ModelSerializer):
     username            = serializers.CharField()
     
     class Meta:
         model = User
-        fields = ('username', 'email', 'limit', 'currency', 'is_monday_first', 'notification_email_enable', 'news_email_enable')
+        fields = ('id', 'username', 'email', 'limit', 'currency', 'is_monday_first', 'notification_email_enable', 'news_email_enable')
 
 class ChangePasswordSerializer(serializers.Serializer):
     old_password            = serializers.CharField(write_only=True, max_length=100)
