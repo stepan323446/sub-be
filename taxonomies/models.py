@@ -1,5 +1,9 @@
+from typing import ClassVar
+from django.db.models.manager import BaseManager
 from django.db import models
+
 from users.models import User
+from .managers import PaymentMethodManager
 
 # Create your models here.
 class Label(models.Model):
@@ -33,6 +37,8 @@ class PaymentMethod(models.Model):
 
     created_at  = models.DateTimeField(auto_now_add=True)
     updated_at  = models.DateTimeField(auto_now=True)
+
+    objects: PaymentMethodManager["PaymentMethod"] = PaymentMethodManager()
 
     def __str__(self):
         return f"{self.name} by {self.user}"

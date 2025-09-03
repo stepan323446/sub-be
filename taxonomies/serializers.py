@@ -5,9 +5,6 @@ from .models import *
 COLOR_NO_TRANSPERENT_REGEX = r"^#[0-9A-Fa-f]{6}$"
 
 class LabelSerializer(serializers.ModelSerializer):
-    created_at = serializers.DateTimeField(read_only=True)
-    updated_at = serializers.DateTimeField(read_only=True)
-
     def validate_colorHex(self, value):
         match_color = re.match(COLOR_NO_TRANSPERENT_REGEX, value)
         if not match_color:
@@ -18,20 +15,24 @@ class LabelSerializer(serializers.ModelSerializer):
     class Meta:
         model = Label
         fields = ['pk', 'name', 'colorHex', 'user', 'created_at', 'updated_at']
-        read_only_fields = ("user",)
+        read_only_fields = ("user", 'created_at', 'updated_at')
 
 class PaymentMethodTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = PaymentMethodType
-        fields = ['type', 'icon']
+        fields = ['pk', 'type', 'icon']
 
-class PaymentMethodTypeSerializer(serializers.ModelSerializer):
-    type = PaymentMethodTypeSerializer()
-    created_at = serializers.DateTimeField(read_only=True)
-    updated_at = serializers.DateTimeField(read_only=True)
+class PaymentMethodSerializer(serializers.ModelSerializer):
+    public_name = serializers.SerializerMethodField(read_only=True)
+    type_detail = PaymentMethodTypeSerializer(source="type", read_only=True)
 
     class Meta:
-        model = PaymentMethodType
-        fields = ['name', 'type', 'user', 'created_at', 'updated_at']
-        read_only_fields = ("user",)
+        model = PaymentMethod
+        fields = ['pk', 'public_name', 'name', 'type', 'type_detail', 'user', 'created_at', 'updated_at']
+        read_only_fields = ("user", "created_at", "updated_at")
 
+    def get_public_name(self, obj: "PaymentMethodSerializer"):
+        if obj.name:
+            return f"{obj.name} ({obj.type.type})"
+        else:
+            return obj.type_detail.type
