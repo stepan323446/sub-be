@@ -47,6 +47,9 @@ INSTALLED_APPS = [
     # Swagger
     # https://drf-spectacular.readthedocs.io/en/latest/index.html
     'drf_spectacular',
+
+    # Local apps
+    'taxonomies.apps.TaxonomiesConfig',
 ]
 
 AUTH_USER_MODEL = 'users.User'
