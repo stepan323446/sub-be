@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     # Local apps
     'taxonomies.apps.TaxonomiesConfig',
     'services.apps.ServicesConfig',
+    'currency.apps.CurrencyConfig',
 ]
 
 AUTH_USER_MODEL = 'users.User'
