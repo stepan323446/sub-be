@@ -11,9 +11,6 @@ class LabelTest(StrAPITestCase):
         cls.label_1 = Label.objects.create(name="Test Label", colorHex="#ff5151", user=cls.user)
         cls.label_2 = Label.objects.create(name="Music", colorHex="#008115", user=cls.user)
 
-        cls.paytype_pp = PaymentMethodType.objects.create(type="PayPal", icon="card-types/pp.png")
-        cls.paytype_visa = PaymentMethodType.objects.create(type="VISA", icon="card-types/visa.png")
-
     def test_create_label_incorrect_color(self):
         self.authorize()
         url = reverse_lazy('tax-label-new')
