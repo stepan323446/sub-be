@@ -13,6 +13,7 @@ jobs:
         SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
         EMAIL_HOST_USER: ${{ secrets.EMAIL_HOST_USER }}
         EMAIL_HOST_PASSWORD: ${{ secrets.EMAIL_HOST_PASSWORD }}
+        EXCHANGE_RATE_KEY: ${{ secrets.EXCHANGE_RATE_KEY }}
 
     strategy:
       max-parallel: 4
