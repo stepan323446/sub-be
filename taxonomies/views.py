@@ -1,7 +1,6 @@
 from rest_framework.generics import RetrieveUpdateDestroyAPIView, ListAPIView, CreateAPIView, RetrieveAPIView
 from rest_framework import permissions
 from rest_framework.filters import SearchFilter
-from django_filters.rest_framework import DjangoFilterBackend
 from drf_spectacular.utils import extend_schema
 
 from .serializers import *
