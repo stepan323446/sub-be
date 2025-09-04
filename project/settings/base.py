@@ -19,6 +19,9 @@ SECRET_KEY = os.environ['SECRET_KEY']
 
 ALLOWED_HOSTS = []
 
+# API to get all currencies
+# https://www.exchangerate-api.com/
+EXCHANGE_RATE_KEY = os.environ['EXCHANGE_RATE_KEY']
 
 # Application definition
 
@@ -50,6 +53,7 @@ INSTALLED_APPS = [
 
     # Local apps
     'taxonomies.apps.TaxonomiesConfig',
+    'services.apps.ServicesConfig',
 ]
 
 AUTH_USER_MODEL = 'users.User'
