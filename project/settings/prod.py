@@ -5,20 +5,31 @@ os.environ["ENVIRONMENT"] = "prod"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = True
+
+ALLOWED_HOSTS = [ FRONTEND_DOMAIN ]
+
 CORS_ALLOWED_ORIGINS = [
-    # "http://localhost:8080",
-    # "http://127.0.0.1:8000",
+    f"https://{FRONTEND_DOMAIN}"
 ]
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': BASE_DIR / 'db.sqlite3',
-    # }
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': os.environ['PROD_DB_NAME'],
+        'USER': os.environ['PROD_DB_USER'],
+        'PASSWORD': os.environ['PROD_DB_PASS'],
+        'HOST': 'localhost',
+        'PORT': 3306,
+        'OPTIONS': {
+                'charset': 'utf8mb4',
+        },
+        'CONN_MAX_AGE': 0
+    }
 }
 
-# ACTIVATION_PATTERN_URL_FRONTEND = 'https://localhost:8001/activate/<code>'
-# RESET_PASS_PATTERN_URL_FRONTEND = 'https://localhost:8001/reset/<code>'
+
