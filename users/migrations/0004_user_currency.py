@@ -16,6 +16,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='user',
             name='currency',
-            field=models.ForeignKey(default=users.models.get_default_currency, on_delete=django.db.models.deletion.SET_DEFAULT, to='currency.currency'),
+            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.SET_DEFAULT, to='currency.currency'),
         ),
     ]

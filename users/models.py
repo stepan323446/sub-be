@@ -6,13 +6,11 @@ from django.utils.crypto import get_random_string
 from currency.models import Currency
 from datetime import timedelta
 
-def get_default_currency():
-    return Currency.objects.get(code='USD').id
 
 # Create your models here.
 class User(AbstractUser):
     limit = models.FloatField(default=0)
-    currency = models.ForeignKey(Currency, on_delete=models.SET_DEFAULT, default=get_default_currency)
+    currency = models.ForeignKey(Currency, on_delete=models.SET_DEFAULT, default=1)
     is_monday_first = models.BooleanField(default=True)
 
     notification_email_enable = models.BooleanField(default=True)

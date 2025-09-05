@@ -1,5 +1,5 @@
+from django.core.exceptions import PermissionDenied
 from django.db import models
-from drf_spectacular.utils import extend_schema
 
 # Create your models here.
 class Currency(models.Model):
@@ -9,3 +9,8 @@ class Currency(models.Model):
 
     def __str__(self):
         return self.code
+    
+    def delete(self, using, keep_parents):
+        if self.pk == 1:
+            raise PermissionDenied("You cannot delete default model with id 1")
+        return super().delete(using, keep_parents)
