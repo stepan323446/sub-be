@@ -8,4 +8,4 @@ class Currency(models.Model):
     conversion_rate = models.FloatField(default=1, verbose_name='Coversion rate (USD to ...)')
 
     def __str__(self):
-        return self.name
+        return self.code
