@@ -5,9 +5,11 @@ os.environ["ENVIRONMENT"] = "dev"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+ALLOWED_HOSTS = ['localhost']
+
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8080",
-    "http://127.0.0.1:8000",
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
 ]
 
 # Database
@@ -19,6 +21,3 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
-ACTIVATION_PATTERN_URL_FRONTEND = 'https://localhost:8001/activate/<code>'
-RESET_PASS_PATTERN_URL_FRONTEND = 'https://localhost:8001/reset/<code>'
