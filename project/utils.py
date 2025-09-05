@@ -14,14 +14,27 @@ class StrAPITestCase(APITestCase):
     @classmethod
     def setUpTestData(cls):
         cls.user = cls.setUpUser()
+        cls.admin = cls.setUpAdminUser()
+
         refresh = RefreshToken.for_user(cls.user)
         cls.access_token = str(refresh.access_token)
+
+        refresh = RefreshToken.for_user(cls.admin)
+        cls.access_admin_token = str(refresh.access_token)
 
     @classmethod
     def setUpUser(cls):
         return User.objects.create_user(
             username='testuser',
             email='test@example.com',
+            password='testpassword123'
+        )
+    
+    @classmethod
+    def setUpAdminUser(cls):
+        return User.objects.create_superuser(
+            username='admin',
+            email='admin@example.com',
             password='testpassword123'
         )
     
@@ -32,6 +45,9 @@ class StrAPITestCase(APITestCase):
     
     def authorize(self):
         self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {self.access_token}')
+
+    def admin_authorize(self):
+        self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {self.access_admin_token}')
 
 
 def send_email_template(subject, to, html_content, html_content_alt, context):

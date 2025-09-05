@@ -1,6 +1,7 @@
 from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
 
+from currency.serializers import CurrencySerializer
 from .models import User, VerificationCode
 from .validators import validate_verification_code
 
