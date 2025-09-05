@@ -19,7 +19,7 @@ urlpatterns = [
     path('users/change-password/', ChangePasswordView.as_view(), name='change-password'),
 
     # Admin
-    path('admin/users/<int:pk>', AdminUserInfo.as_view(), name="admin-user-info"),
+    path('admin/users/<int:pk>/', AdminUserInfo.as_view(), name="admin-user-info"),
     path('admin/users/<int:pk>/change-password/', AdminChangePassword.as_view(), name="admin-change-password/"),
     path('admin/users/<int:pk>/login/', AdminLoginAsUser.as_view(), name='admin-user-login'),
     path('admin/users/', AdminUserList.as_view(), name='admin-user-list'),

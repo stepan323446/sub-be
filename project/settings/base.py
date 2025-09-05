@@ -17,8 +17,9 @@ if os.path.isfile(dotenv_file):
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ['SECRET_KEY']
 
-ALLOWED_HOSTS = []
-
+# API to get all currencies
+# https://www.exchangerate-api.com/
+EXCHANGE_RATE_KEY = os.environ['EXCHANGE_RATE_KEY']
 
 # Application definition
 
@@ -47,6 +48,11 @@ INSTALLED_APPS = [
     # Swagger
     # https://drf-spectacular.readthedocs.io/en/latest/index.html
     'drf_spectacular',
+
+    # Local apps
+    'taxonomies.apps.TaxonomiesConfig',
+    'services.apps.ServicesConfig',
+    'currency.apps.CurrencyConfig',
 ]
 
 AUTH_USER_MODEL = 'users.User'
@@ -203,4 +209,8 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 SERVER_EMAIL = EMAIL_HOST_USER
 EMAIL_ADMIN = EMAIL_HOST_USER
 
+FRONTEND_DOMAIN = os.environ['FRONTEND_DOMAIN']
 CODE_PATTERN_PLACEHOLDER = '<code>'
+
+ACTIVATION_PATTERN_URL_FRONTEND = f'https://{FRONTEND_DOMAIN}/activate/<code>'
+RESET_PASS_PATTERN_URL_FRONTEND = f'https://{FRONTEND_DOMAIN}/reset/<code>'

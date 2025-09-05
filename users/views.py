@@ -7,8 +7,8 @@ from rest_framework.generics import RetrieveUpdateAPIView, CreateAPIView, Retrie
 from rest_framework.views import APIView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from rest_framework.pagination import PageNumberPagination
 
+from rest_framework.filters import SearchFilter
 from django_filters.rest_framework import DjangoFilterBackend
 
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -215,6 +215,7 @@ class ChangePasswordView(APIView):
                description="Create, Read, Update, and Delete operations for user management")
 class AdminUserInfo(RetrieveUpdateDestroyAPIView):
     serializer_class = UserAdminSerializer
+    queryset = User.objects.all()
     permission_classes = [ permissions.IsAdminUser ]
 
 @extend_schema(tags=['Admin'],
@@ -223,8 +224,8 @@ class AdminUserList(ListAPIView):
     serializer_class = UserAdminSerializer
     permission_classes = [ permissions.IsAdminUser ]
     search_fields = ['username', 'email']
-    filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['username', 'email', 'is_active']
+    filter_backends = [DjangoFilterBackend, SearchFilter]
+    filterset_fields = ['is_active']
 
     def get_queryset(self):
         return User.objects.all()
@@ -236,11 +237,12 @@ class AdminUserList(ListAPIView):
 class AdminChangePassword(APIView):
     permission_classes = [ permissions.IsAdminUser ]
 
-    def post(self, request: Request, id=None, format=None):
+    def post(self, request: Request, pk=None, format=None):
         new_pass = request.data.get('new_password')
-        user = get_object_or_404(User, pk=id)
+        user = get_object_or_404(User, pk=pk)
 
         user.set_password(new_pass)
+        user.save()
         return Response({'detail': 'The password was changed successfully.'})
 
 @extend_schema(tags=["Admin"],
@@ -250,8 +252,8 @@ class AdminChangePassword(APIView):
 class AdminLoginAsUser(APIView):
     permission_classes = [ permissions.IsAdminUser ]
 
-    def post(self, request: Request, id=None, format=None):
-        user = get_object_or_404(User, pk=id)
+    def post(self, request: Request, pk=None, format=None):
+        user = get_object_or_404(User, pk=pk)
 
         refresh = RefreshToken.for_user(user)
         return Response({
