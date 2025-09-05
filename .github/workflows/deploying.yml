@@ -41,7 +41,16 @@ jobs:
     needs: testing
     
     steps:
-    - uses: actions/checkout@v4
-
-    - name: Deploying on live server
-      run: echo "Deployed (test)"
+    - uses: appleboy/ssh-action@v0.1.8
+      with:
+        host: ${{ secrets.SSH_IP }}
+        username: ${{ secrets.SSH_USERNAME }}
+        key: ${{ secrets.SSH_SECRET_KEY }}
+        port: 22
+        script: |
+          cd /sites/subtrack/sub-be/
+          source .venv/bin/activate
+          git pull
+          pip install -r requirements.txt
+          python3 manage.py migrate
+          sudo /bin/systemctl restart subtrack.gunicorn.service
