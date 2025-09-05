@@ -17,8 +17,6 @@ if os.path.isfile(dotenv_file):
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ['SECRET_KEY']
 
-ALLOWED_HOSTS = []
-
 # API to get all currencies
 # https://www.exchangerate-api.com/
 EXCHANGE_RATE_KEY = os.environ['EXCHANGE_RATE_KEY']
