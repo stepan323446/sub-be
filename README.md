@@ -40,7 +40,7 @@ git clone https://github.com/stepan323446/sub-be.git
 ```shell
 python3 -m venv .venv
 source .venv/bin/activate
-pip install -r requirements
+pip install -r requirements.txt
 ```
 3. (production) If you use MySQL, you need to install `mysqlclient`
 ```shell
