@@ -74,10 +74,11 @@ class ActivateUserSerializer(serializers.Serializer):
 class UserSerializer(serializers.ModelSerializer):
     username            = serializers.CharField()
     email               = serializers.EmailField(read_only=True)
+    currency_detail     = CurrencySerializer(source="currency", read_only=True)
 
     class Meta:
         model = User
-        fields = ('id', 'username', 'email', 'limit', 'currency', 'is_monday_first', 'notification_email_enable', 'news_email_enable')
+        fields = ('id', 'username', 'email', 'limit', 'currency', 'currency_detail', 'is_monday_first', 'notification_email_enable', 'news_email_enable')
 
 class UserAdminSerializer(serializers.ModelSerializer):
     username            = serializers.CharField()
