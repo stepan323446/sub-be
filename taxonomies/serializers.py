@@ -14,13 +14,13 @@ class LabelSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Label
-        fields = ['pk', 'name', 'colorHex', 'user', 'created_at', 'updated_at']
+        fields = ['id', 'name', 'colorHex', 'user', 'created_at', 'updated_at']
         read_only_fields = ("user", 'created_at', 'updated_at')
 
 class PaymentMethodTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = PaymentMethodType
-        fields = ['pk', 'type', 'icon']
+        fields = ['id', 'type', 'icon']
 
 class PaymentMethodSerializer(serializers.ModelSerializer):
     public_name = serializers.SerializerMethodField(read_only=True)
@@ -28,7 +28,7 @@ class PaymentMethodSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = PaymentMethod
-        fields = ['pk', 'public_name', 'name', 'type', 'type_detail', 'user', 'created_at', 'updated_at']
+        fields = ['id', 'public_name', 'name', 'type', 'type_detail', 'user', 'created_at', 'updated_at']
         read_only_fields = ("user", "created_at", "updated_at")
 
     def get_public_name(self, obj: "PaymentMethodSerializer"):
